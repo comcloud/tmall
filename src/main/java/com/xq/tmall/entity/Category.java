@@ -1,9 +1,5 @@
 package com.xq.tmall.entity;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import lombok.Data;
-
 import java.util.List;
 public class Category {
     private Integer category_id;

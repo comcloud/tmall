@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
  * 基控制器
  */
 public class BaseController {
-    //log4j2
+    //log4j
     protected Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     //检查管理员权限

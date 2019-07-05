@@ -1,5 +1,5 @@
 
-procurement-gov:
+TmallDemo:
   swagger-open: true                #是否开启swagger (true/false)
   kaptcha-open: false               #是否开启登录时验证码 (true/false)
   spring-session-open: true        #是否开启spring session,如果是多机环境需要开启(true/false)

@@ -6,8 +6,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import java.sql.Timestamp;
 
 /**
- * Author: gexin
- * Date: 2018/11/8
  * Describe: 自定义填充公共 name 字段
  */
 public class MyMetaObjectHandler extends MetaObjectHandler {
