@@ -4,7 +4,7 @@
     <script src="${pageContext.request.contextPath}/res/js/fore/fore_login.js"></script>
     <script src="${pageContext.request.contextPath}/res/js/fore/fore_productDetails.js"></script>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_productDetails.css" rel="stylesheet">
-    <title>${requestScope.product.product_name}-tmall.com天猫</title>
+    <title>${requestScope.product.product_name}-tmall.com真食惠</title>
 </head>
 <body>
 <nav>
@@ -19,9 +19,9 @@
         <div class="shopSearchHeader">
             <form action="${pageContext.request.contextPath}/product" method="get">
                 <div class="shopSearchInput">
-                    <input type="text" class="searchInput" name="product_name" placeholder="搜索 天猫 商品/品牌/店铺"
+                    <input type="text" class="searchInput" name="product_name" placeholder="搜索 真食惠 商品/品牌/店铺"
                            maxlength="50">
-                    <input type="submit" value="搜天猫" class="searchTmall">
+                    <input type="submit" value="搜真食惠" class="searchTmall">
                 </div>
                 <input type="submit" value="搜本店" class="searchShop">
             </form>
@@ -39,13 +39,6 @@
 <div class="loginDiv">
     <div class="loginDivHeader">
         <a href="javascript:void(0)" class="closeLoginDiv"></a>
-    </div>
-    <div class="loginSwitch" id="loginSwitch"></div>
-    <div class="loginMessage">
-        <div class="loginMessageMain">
-            <div class="poptip-arrow"><em></em><span></span></div>
-            <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/scan-safe.png"/><span>扫码登录更安全</span>
-        </div>
     </div>
     <div class="pwdLogin">
         <span class="loginTitle">密码登录</span>
@@ -65,8 +58,7 @@
             <input type="submit" class="loginButton" value="登 录">
         </form>
         <div class="loginLinks">
-            <a href="#">忘记密码</a>
-            <a href="#">忘记会员名</a>
+            <a href="${pageContext.request.contextPath}/faceLogin" target="_blank">人脸登录</a>
             <a href="${pageContext.request.contextPath}/register" target="_blank">免费注册</a>
         </div>
         <div class="error_message">
@@ -83,7 +75,7 @@
         </div>
         <div class="qrcodeFooter">
             <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/scan_icon2.png">
-            <p>打开 <a href="https://www.tmall.com/wow/portal/act/app-download">手机天猫</a> | <a
+            <p>打开 <a href="https://www.tmall.com/wow/portal/act/app-download">手机真食惠</a> | <a
                     href="https://www.taobao.com/m">手机淘宝</a>扫一扫登录</p>
         </div>
         <div class="loginLinks">
@@ -122,7 +114,7 @@
         <div class="context_info_main">
             <div class="context_info_main_ad">
                 <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/context_ad.png">
-                <span>全天猫实物商品通用</span>
+                <span>全真食惠实物商品通用</span>
                 <a href="#">去刮券<img
                         src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/tmallItemContentB.png"></a>
             </div>
@@ -140,7 +132,7 @@
                     test="${requestScope.product.product_sale_count != null}">${requestScope.product.product_sale_count}</c:when><c:otherwise>0</c:otherwise></c:choose></span>
             </li>
             <li>累计评价<span>${requestScope.product.product_review_count}</span></li>
-            <li class="tmall_points">送天猫积分<span><fmt:formatNumber type="number"
+            <li class="tmall_points">送真食惠积分<span><fmt:formatNumber type="number"
                                                                   value="${requestScope.product.product_sale_price/10}"
                                                                   maxFractionDigits="0"/></span></li>
         </ul>

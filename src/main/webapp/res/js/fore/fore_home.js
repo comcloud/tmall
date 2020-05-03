@@ -33,6 +33,7 @@ $(function () {
                         for (var j = 0; j < list[i].length; j++) {
                             var product_title = list[i][j].product_title;
                             var index = product_title.indexOf(' ');
+
                             if (index !== -1) {
                                 product_title = product_title.substring(0, index);
                             }

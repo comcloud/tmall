@@ -1,9 +1,25 @@
 package com.xq.tmall.util;
 
+/**
+ * @author HP
+ */
 public final class PageUtil {
+    /**
+     * 索引存储在，作用：计算从数据库中第几组取
+     * eg:index为1，此时取得数量为5，则表示从数据库中第1 * 5 行开始取 5 个
+     */
     private Integer index;
+    /**
+     * 取得数量
+     */
     private Integer count;
+    /**
+     * 总数
+     */
     private Integer total;
+    /**
+     * 获取数据库数据行得开始位置
+     */
     private Integer pageStart;
 
     public PageUtil(Integer index, Integer count) {

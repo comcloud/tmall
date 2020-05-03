@@ -5,7 +5,7 @@
 <body>
 <title><c:choose><c:when test="${requestScope.searchValue != null}">${requestScope.searchValue}</c:when>
     <c:otherwise><c:choose><c:when
-            test="${requestScope.productList != null && fn:length(requestScope.productList)>0}">${requestScope.productList[0].product_category.category_name}</c:when><c:otherwise>没找到相关商品</c:otherwise></c:choose></c:otherwise></c:choose>-天猫Tmall.com-理想生活上天猫</title>
+            test="${requestScope.productList != null && fn:length(requestScope.productList)>0}">${requestScope.productList[0].product_category.category_name}</c:when><c:otherwise>没找到相关商品</c:otherwise></c:choose></c:otherwise></c:choose>-真食惠Tmall.com-理想生活上真食惠</title>
 <nav>
     <%@ include file="include/navigator.jsp" %>
     <div class="header">
@@ -16,7 +16,7 @@
         <div class="shopSearchHeader">
             <form action="${pageContext.request.contextPath}/product" method="get">
                 <div class="shopSearchInput">
-                    <input type="text" class="searchInput" name="product_name" placeholder="搜索 天猫 商品/品牌/店铺"
+                    <input type="text" class="searchInput" name="product_name" placeholder="搜索 真食惠 商品/品牌/店铺"
                            value="${requestScope.searchValue}" maxlength="50">
                     <input type="submit" value="搜 索" class="searchBtn">
                 </div>

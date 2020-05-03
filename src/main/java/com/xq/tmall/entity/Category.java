@@ -2,14 +2,30 @@ package com.xq.tmall.entity;
 
 import java.util.List;
 public class Category {
+    /**
+     * 目录id
+     */
     private Integer category_id;
+    /**
+     * 目录名
+     */
     private String category_name;
+    /**
+     * 目录图片路径
+     */
     private String category_image_src;
-    //产品列表
+    /**
+     * 产品集合
+     */
     private List<Product> productList;
-    //产品二维集合
+    /**
+     * 产品二维集合
+     * 一个目录存储多个产品
+     */
     private List<List<Product>> complexProductList;
-    //属性列表
+    /**
+     * 属性集合
+     */
     private List<Property> propertyList;
 
     @Override

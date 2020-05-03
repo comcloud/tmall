@@ -5,19 +5,61 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author HP
+ */
 public class ProductOrder {
+    /**
+     * 产品订单id
+     */
     private Integer productOrder_id;
+    /**
+     * 产品订单码
+     */
     private String productOrder_code;
+    /**
+     * 订单发送地址
+     */
     private Address productOrder_address;
+    /**
+     * 订单详情地址
+     */
     private String productOrder_detail_address;
+    /**
+     * 订单发送
+     */
     private String productOrder_post;
+    /**
+     * 订单接收者
+     */
     private String productOrder_receiver;
+    /**
+     * 邮政编码
+     */
     private String productOrder_mobile;
+    /**
+     * 订单支付日期
+     */
     private Date productOrder_pay_date;
+    /**
+     * 订单交货日期
+     */
     private Date productOrder_delivery_date;
+    /**
+     * 订单确认日期
+     */
     private Date productOrder_confirm_date;
+    /**
+     * 订单状态
+     */
     private Byte productOrder_status;
+    /**
+     * 订单发起用户
+     */
     private User productOrder_user;
+    /**
+     * 订单条目集合
+     */
     private List<ProductOrderItem> productOrderItemList;
 
     @Override

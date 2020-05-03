@@ -2,7 +2,7 @@
 <%@ include file="include/header.jsp" %>
 <head>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_orderSuccessPage.css" rel="stylesheet"/>
-    <title>交易成功 - Tmall.com天猫-理想生活上天猫</title>
+    <title>交易成功 - Tmall.com真食惠-理想生活上真食惠</title>
 </head>
 <body>
 <nav>
@@ -16,7 +16,7 @@
     <div class="shopSearchHeader">
         <form action="${pageContext.request.contextPath}/product" method="get">
             <div class="shopSearchInput">
-                <input type="text" class="searchInput" name="product_name" placeholder="搜索 天猫 商品/品牌/店铺"
+                <input type="text" class="searchInput" name="product_name" placeholder="搜索 真食惠 商品/品牌/店铺"
                        maxlength="50">
                 <input type="submit" value="搜 索" class="searchBtn">
             </div>
@@ -31,7 +31,7 @@
                 <div class="successInfo">
                     <ul class="info-rate-coin">
                         <li>
-                            <span class="review_msg">认真填写商品评价，就有机会获得20点天猫达人经验值！</span>
+                            <span class="review_msg">认真填写商品评价，就有机会获得20点真食惠达人经验值！</span>
                             <a class="J_makePoint"
                                href="${pageContext.request.contextPath}/review/${requestScope.orderItem.productOrderItem_id}">
                                 <img src="${pageContext.request.contextPath}/res/images/item/productSinglePicture/${requestScope.product.singleProductImageList[0].productImage_src}"

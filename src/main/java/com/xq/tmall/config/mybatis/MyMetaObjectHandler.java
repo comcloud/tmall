@@ -7,11 +7,14 @@ import java.sql.Timestamp;
 
 /**
  * Describe: 自定义填充公共 name 字段
+ * 自定义填充策略接口实现
+ * @author HP
  */
 public class MyMetaObjectHandler extends MetaObjectHandler {
 
     /**
      * 测试 user 表 name 字段为空自动填充
+     * @param metaObject 填充工具
      */
 	 @Override
     public void insertFill(MetaObject metaObject) {
@@ -28,6 +31,9 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         }
     }
 
+    /**
+     * @param metaObject 填充公寓
+     */
     @Override
     public void updateFill(MetaObject metaObject) {
         //更新填充

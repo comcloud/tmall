@@ -1,14 +1,40 @@
 package com.xq.tmall.entity;
 
+/**
+ * @author HP
+ */
 public class ProductOrderItem {
+    /**
+     * 产品订单条目id
+     */
     private Integer productOrderItem_id;
+    /**
+     * 产品订单条目数量
+     */
     private Short productOrderItem_number;
+    /**
+     * 产品订单条目价格
+     */
     private Double productOrderItem_price;
+    /**
+     *
+     */
     private Product productOrderItem_product;
+    /**
+     * 订单
+     */
     private ProductOrder productOrderItem_order;
+    /**
+     * 用户
+     */
     private User productOrderItem_user;
+    /**
+     * 产品订单条目用户消息
+     */
     private String productOrderItem_userMessage;
-    //订单产品是否已经评价
+    /**
+     * 订单产品是否已经评价
+     */
     private Boolean isReview;
 
     public ProductOrderItem() {

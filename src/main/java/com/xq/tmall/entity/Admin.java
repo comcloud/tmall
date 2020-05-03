@@ -1,10 +1,28 @@
 package com.xq.tmall.entity;
 
+/**
+ * @author HP
+ */
 public class Admin {
+    /**
+     * 管理员id
+     */
     private Integer admin_id;
+    /**
+     * 管理员名
+     */
     private String admin_name;
+    /**
+     * 管理员昵称
+     */
     private String admin_nickname;
+    /**
+     * 管理员密码
+     */
     private String admin_password;
+    /**
+     * 管理员头像
+     */
     private String admin_profile_picture_src;
 
     @Override

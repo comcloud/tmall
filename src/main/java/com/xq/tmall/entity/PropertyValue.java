@@ -1,9 +1,24 @@
 package com.xq.tmall.entity;
 
+/**
+ * @author HP
+ */
 public class PropertyValue {
+    /**
+     * 属性值id
+     */
     private Integer propertyValue_id;
+    /**
+     * 属性值
+     */
     private String propertyValue_value;
+    /**
+     * 属性值对应的属性
+     */
     private Property propertyValue_property;
+    /**
+     * 属性值对应的产品
+     */
     private Product propertyValue_product;
 
     public PropertyValue() {

@@ -3,7 +3,7 @@
 <head>
     <script src="${pageContext.request.contextPath}/res/js/fore/fore_productBuyCar.js"></script>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_productBuyCarPage.css" rel="stylesheet"/>
-    <title>Tmall.com天猫 - 购物车</title>
+    <title>Tmall.com真食惠 - 购物车</title>
     <script>
         $(function () {
             $('#btn-ok').click(function () {
@@ -50,7 +50,7 @@
         <div class="shopSearchHeader">
             <form action="${pageContext.request.contextPath}/product" method="get">
                 <div class="shopSearchInput">
-                    <input type="text" class="searchInput" name="product_name" placeholder="搜索 天猫 商品/品牌/店铺"
+                    <input type="text" class="searchInput" name="product_name" placeholder="搜索 真食惠 商品/品牌/店铺"
                            value="${requestScope.searchValue}" maxlength="50">
                     <input type="submit" value="搜 索" class="searchBtn">
                 </div>

@@ -175,7 +175,7 @@ $(function () {
                         $(".msg").animate({
                             opacity: 0
                         }, 1500, function () {
-                            location.href = "/tmall/login";
+                            location.href = "/tmall/register/faceRegister";
                         });
                     });
                 } else {

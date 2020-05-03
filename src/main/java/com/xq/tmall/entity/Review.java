@@ -4,12 +4,33 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * @author HP
+ */
 public class Review {
+    /**
+     * 反馈id
+     */
     private Integer review_id;
+    /**
+     * 反馈内容
+     */
     private String review_content;
+    /**
+     * 反馈时间
+     */
     private Date review_createDate;
+    /**
+     * 反馈者
+     */
     private User review_user;
+    /**
+     * 反馈产品
+     */
     private Product review_product;
+    /**
+     * 反馈订单条目
+     */
     private ProductOrderItem review_orderItem;
 
     public Review() {

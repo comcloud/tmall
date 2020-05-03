@@ -11,14 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author HP
+ */
 @Service
 public class AddressServiceImpl implements AddressService{
     @Autowired
     private AddressMapper addressMapper;
-    public void setAddressMapper(AddressMapper addressMapper) {
-        this.addressMapper = addressMapper;
-    }
 
+    /**
+     * @param address 地址
+     * @return
+     */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public boolean add(Address address) {

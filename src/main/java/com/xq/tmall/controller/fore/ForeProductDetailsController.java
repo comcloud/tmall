@@ -19,31 +19,73 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * 前台天猫-产品详情页
+ * 前台真食惠-产品详情页
+ * @author HP
  */
 @Controller
 public class ForeProductDetailsController extends BaseController {
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 用户服务层
+     */
     @Autowired
     private UserService userService;
+    /**
+     * 产品图片服务层
+     */
     @Autowired
     private ProductImageService productImageService;
+    /**
+     * 目录服务层
+     */
     @Autowired
     private CategoryService categoryService;
+    /**
+     * 属性值服务层
+     */
     @Autowired
     private PropertyValueService propertyValueService;
+    /**
+     * 属性层
+     */
     @Autowired
     private PropertyService propertyService;
+    /**
+     * 回馈服务层
+     */
     @Autowired
     private ReviewService reviewService;
+    /**
+     * 产品图片条目服务层
+     */
     @Autowired
     private ProductOrderItemService productOrderItemService;
 
-    //转到前台天猫-产品详情页
+    /**
+     * 前往产品详情页面
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @param pid 产品id
+     * @return 产品详情页面
+     */
     @RequestMapping(value = "product/{pid}", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map,
                            @PathVariable("pid") String pid /*产品ID*/) {
+        /**
+         * 1.检查用户是否登录，登录则保存用户信息到map
+         * 2.根据产品id查询产品是否存在，即使存在如果product_isEnabled为1依旧跳转到404界面
+         * 3.获取产品子信息-分类信息
+         * 4.获取产品子信息-产品图片信息
+         * 5.获取产品子信息-产品属性信息
+         * 6.获取产品子信息-销量数和评论数信息
+         * 7.获取猜你喜欢列表
+         * 8.获取分类列表
+         * 9.转到前台-产品详情页
+        * */
         logger.info("检查用户是否登录");
         Object userId = checkUser(session);
         if (userId != null) {
@@ -58,22 +100,24 @@ public class ForeProductDetailsController extends BaseController {
         if (product == null || product.getProduct_isEnabled() == 1) {
             return "redirect:/404";
         }
-        logger.info("获取产品子信息-分类信息");
+        logger.info("获取产品子信息-分类信息，根据产品对应的目录id获取目录对象");
         product.setProduct_category(categoryService.get(product.getProduct_category().getCategory_id()));
         logger.info("获取产品子信息-产品图片信息");
         List<ProductImage> productImageList = productImageService.getList(product_id, null, null);
         List<ProductImage> singleProductImageList = new ArrayList<>(5);
         List<ProductImage> detailsProductImageList = new ArrayList<>(8);
         for (ProductImage productImage : productImageList) {
+            //类型为0的添加到单个产品图片集合中
             if (productImage.getProductImage_type() == 0) {
                 singleProductImageList.add(productImage);
             } else {
+                //不为0的话添加到详情图片集合中
                 detailsProductImageList.add(productImage);
             }
         }
         product.setSingleProductImageList(singleProductImageList);
         product.setDetailProductImageList(detailsProductImageList);
-        logger.info("获取产品子信息-产品属性值信息");
+        logger.info("获取产品子信息-产品属性信息");
         List<PropertyValue> propertyValueList = propertyValueService.getList(new PropertyValue().setPropertyValue_product(product), null);
         logger.info("获取产品子信息-分类信息对应的属性列表");
         List<Property> propertyList = propertyService.getList(new Property().setProperty_category(product.getProduct_category()), null);
@@ -132,7 +176,13 @@ public class ForeProductDetailsController extends BaseController {
         return "fore/productDetailsPage";
     }
 
-    //按产品ID加载产品评论列表-ajax
+    /**
+     * 按产品ID加载产品评论列表-ajax
+     * @param pid 产品Id
+     * @param index 页数
+     * @param count 行数
+     * @return 加载商品评论
+     */
     @Deprecated
     @ResponseBody
     @RequestMapping(value = "review/{pid}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
@@ -149,7 +199,12 @@ public class ForeProductDetailsController extends BaseController {
         return jsonObject.toJSONString();
     }
 
-    //按产品ID加载产品属性列表-ajax
+    /**
+     *
+     * 按产品ID加载产品属性列表-ajax
+     * @param pid  产品Id
+     * @return 加再产品属性
+     */
     @Deprecated
     @ResponseBody
     @RequestMapping(value = "property/{pid}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
@@ -182,7 +237,11 @@ public class ForeProductDetailsController extends BaseController {
         return jsonObject.toJSONString();
     }
 
-    //加载猜你喜欢列表-ajax
+    /** 还未完成
+     * @param cid 分类目录id
+     * @param guessNumber 原来生成的随机数字
+     * @return 加再猜你喜欢列表ajax
+     */
     @ResponseBody
     @RequestMapping(value = "guess/{cid}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     public String guessYouLike(@PathVariable("cid") Integer cid, @RequestParam Integer guessNumber) {

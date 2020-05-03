@@ -25,23 +25,41 @@ import java.util.Stack;
 
 /**
  * 后台管理-用户页
+ * @author HP
  */
 @Controller
 public class UserController extends BaseController{
+    /**
+     * 用户管理层
+     */
     @Autowired
     private UserService userService;
+    /**
+     * 地址服务层
+     */
     @Autowired
     private AddressService addressService;
-    @Autowired
-    private ReviewService reviewService;
+    /**
+     * 产品订单条目层
+     */
     @Autowired
     private ProductOrderItemService productOrderItemService;
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 产品图片服务层
+     */
     @Autowired
     private ProductImageService productImageService;
 
-    //转到后台管理-用户页-ajax
+    /**
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @return 后台管理用户页面
+     */
     @RequestMapping(value = "admin/user", method = RequestMethod.GET)
     public String goUserManagePage(HttpSession session, Map<String, Object> map){
         logger.info("检查管理员权限");
@@ -66,7 +84,13 @@ public class UserController extends BaseController{
     }
 
 
-    //转到后台管理-用户详情页-ajax
+    /**
+     * 转到后台管理-用户详情页-ajax
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @param uid 用户id
+     * @return 后台管理用户详情页面
+     */
     @RequestMapping(value = "admin/user/{uid}", method = RequestMethod.GET)
     public String getUserById(HttpSession session, Map<String,Object> map, @PathVariable Integer uid/* 用户ID */){
         logger.info("检查管理员权限");
@@ -140,7 +164,17 @@ public class UserController extends BaseController{
         return "admin/include/userDetails";
     }
 
-    //按条件查询用户-ajax
+    /**
+     * 按条件查询用户-ajax
+     * @param user_name 用户名
+     * @param user_gender_array 用户性别数组
+     * @param orderBy 排序字段
+     * @param isDesc 是否倒序
+     * @param index 页数
+     * @param count 行数
+     * @return 用户查询信息
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @ResponseBody
     @RequestMapping(value = "admin/user/{index}/{count}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public String getUserBySearch(@RequestParam(required = false) String user_name/* 用户名称 */,

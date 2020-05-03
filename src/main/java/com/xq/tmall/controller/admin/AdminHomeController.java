@@ -24,19 +24,38 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 /**
  * 后台管理-主页
+ * @author HP
  */
 @Controller
 public class AdminHomeController extends BaseController {
+    /**
+     * 管理员服务层
+     */
     @Autowired
     private AdminService adminService;
+    /**
+     * 产品订单服务层
+     */
     @Autowired
     private ProductOrderService productOrderService;
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 用户服务层
+     */
     @Autowired
     private UserService userService;
 
-    //转到后台管理-主页
+    /**
+     * 转到后台管理-主页
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 转到主页
+     * @throws ParseException 解析异常
+     */
     @RequestMapping(value = "admin", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map) throws ParseException {
         logger.info("检查管理员权限");
@@ -62,7 +81,13 @@ public class AdminHomeController extends BaseController {
         return "admin/homePage";
     }
 
-    //转到后台管理-主页-ajax
+    /**
+     * 转到后台管理-主页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 后台管理主页
+     * @throws ParseException 解析异常
+     */
     @RequestMapping(value = "admin/home", method = RequestMethod.GET)
     public String goToPageByAjax(HttpSession session, Map<String, Object> map) throws ParseException {
         logger.info("检查管理员权限");
@@ -87,7 +112,13 @@ public class AdminHomeController extends BaseController {
         return "admin/homeManagePage";
     }
 
-    //按日期查询图表数据-ajax
+    /**
+     * 按日期查询图表数据-ajax
+     * @param beginDate 开始日期
+     * @param endDate 结束日期
+     * @return 日期查询表数据
+     * @throws ParseException
+     */
     @ResponseBody
     @RequestMapping(value = "admin/home/charts", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     public String getChartDataByDate(@RequestParam(required = false) String beginDate, @RequestParam(required = false) String endDate) throws ParseException {
@@ -99,7 +130,12 @@ public class AdminHomeController extends BaseController {
         }
     }
 
-    //获取图表的JSON数据
+    /**
+     * @param beginDate 开始日期
+     * @param endDate 结束日期
+     * @return 图表的json数据
+     * @throws ParseException 解析异常
+     */
     private JSONObject getChartData(Date beginDate,Date endDate) throws ParseException {
         JSONObject jsonObject = new JSONObject();
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);

@@ -4,9 +4,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * @author HP
+ */
 public class OrderGroup {
+    /**
+     * 产品订单支付时间
+     */
     private Date productOrder_pay_date;
+    /**
+     * 订单数量
+     */
     private Integer productOrder_count;
+    /**
+     * 订单状态
+     */
     private Byte productOrder_status;
 
     public String getProductOrder_pay_date() {

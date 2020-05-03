@@ -19,33 +19,66 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author HP
+ */
 @Controller
 public class ForeProductListController extends BaseController {
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 用户服务层
+     */
     @Autowired
     private UserService userService;
+    /**
+     * 目录服务层
+     */
     @Autowired
     private CategoryService categoryService;
+    /**
+     * 商品图片服务层
+     */
     @Autowired
     private ProductImageService productImageService;
+    /**
+     * 回顾服务层
+     */
     @Autowired
     private ReviewService reviewService;
-    @Autowired
-    private ProductOrderService productOrderService;
+    /**
+     * 用户订单条目层
+     */
     @Autowired
     private ProductOrderItemService productOrderItemService;
 
 
-    //转到前台天猫-产品搜索列表页
+    /**
+     * 符合要求则前往某个目录产品列表中，否则则前往首页
+     * @param session 用户与服务层通讯
+     * @param map map存储值
+     * @param category_id 目录id
+     * @param product_name 产品名
+     * @return 产品搜索列表页面
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @RequestMapping(value = "product", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map,
                            @RequestParam(value = "category_id", required = false) Integer category_id/* 分类ID */,
                            @RequestParam(value = "product_name", required = false) String product_name/* 产品名称 */) throws UnsupportedEncodingException {
+        /**
+         * 1.检查用户是否已经登录
+         * 2.登陆的话则将用户信息放入map中
+         * 3.
+         * */
         logger.info("检查用户是否登录");
         Object userId = checkUser(session);
         if (userId != null) {
@@ -79,7 +112,8 @@ public class ForeProductListController extends BaseController {
         //分页工具
         PageUtil pageUtil = new PageUtil(0, 20);
         if (product_name != null) {
-            product_name = new String(product_name.getBytes("ISO8859-1"), "UTF-8");
+            product_name = new String(product_name.getBytes("ISO8859-1"),
+                    "UTF-8");
             product_name_split = product_name.split(" ");
             logger.warn("提取的关键词有{}", Arrays.toString(product_name_split));
             product.setProduct_name(product_name);
@@ -115,7 +149,7 @@ public class ForeProductListController extends BaseController {
         map.put("searchValue", searchValue);
         map.put("searchType", searchType);
 
-        logger.info("转到前台天猫-产品搜索列表页");
+        logger.info("转到前台真食惠-产品搜索列表页");
         return "fore/productListPage";
     }
 
@@ -130,8 +164,11 @@ public class ForeProductListController extends BaseController {
                                 @RequestParam(required = false, defaultValue = "true") Boolean isDesc/* 是否倒序 */) throws UnsupportedEncodingException {
         logger.info("整合搜索信息");
         Product product = new Product();
+        //排序工具
         OrderUtil orderUtil = null;
+        //搜索值
         String searchValue = null;
+//        搜索类型
         Integer searchType = null;
 
         if (category_id != null) {
@@ -154,7 +191,7 @@ public class ForeProductListController extends BaseController {
         //分页工具
         PageUtil pageUtil = new PageUtil(0, 20);
         if (product_name != null) {
-            product_name = new String(product_name.getBytes("ISO8859-1"), "UTF-8");
+            product_name = new String(product_name.getBytes("ISO8859-1"), StandardCharsets.UTF_8);
             product_name_split = product_name.split(" ");
             logger.warn("提取的关键词有{}", Arrays.toString(product_name_split));
             product.setProduct_name(product_name);

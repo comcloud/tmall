@@ -22,32 +22,73 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * @author HP
+ */
 @Controller
 public class ForeOrderController extends BaseController {
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 用户服务层
+     */
     @Autowired
     private UserService userService;
+    /**
+     * 产品订单条目服务层
+     */
     @Autowired
     private ProductOrderItemService productOrderItemService;
+    /**
+     * 地址服务层
+     */
     @Autowired
     private AddressService addressService;
+    /**
+     * 目录服务层
+     */
     @Autowired
     private CategoryService categoryService;
+    /**
+     * 产品图片服务层
+     */
     @Autowired
     private ProductImageService productImageService;
+    /**
+     * 产平订单服务层
+     */
     @Autowired
     private ProductOrderService productOrderService;
+    /**
+     * 反馈服务层
+     */
     @Autowired
     private ReviewService reviewService;
+    /**
+     *返回最后一个INSERT或 UPDATE 问询为 AUTO_INCREMENT列设置的第一个 发生的值。
+     */
     @Autowired
     private LastIDService lastIDService;
 
-    //转到前台天猫-订单列表页
+    /**
+     * @return 订单列表页面
+     */
     @RequestMapping(value = "order", method = RequestMethod.GET)
     public String goToPageSimple() {
         return "redirect:/order/0/10";
     }
+
+    /**
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @param status 订单状态
+     * @param index 页数
+     * @param count 行数
+     * @return 订单列表页面
+     */
     @RequestMapping(value = "order/{index}/{count}", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map,
                            @RequestParam(required = false) Byte status,
@@ -63,14 +104,13 @@ public class ForeOrderController extends BaseController {
         } else {
             return "redirect:/login";
         }
-        Byte[] status_array = null;
-        if (status != null) {
-            status_array = new Byte[]{status};
-        }
+        Byte[] status_array = new Byte[]{status};
 
         PageUtil pageUtil = new PageUtil(index, count);
         logger.info("根据用户ID:{}获取订单列表", userId);
-        List<ProductOrder> productOrderList = productOrderService.getList(new ProductOrder().setProductOrder_user(new User().setUser_id(Integer.valueOf(userId.toString()))), status_array, new OrderUtil("productOrder_id", true), pageUtil);
+        List<ProductOrder> productOrderList = productOrderService.
+                getList(new ProductOrder().setProductOrder_user(new User().setUser_id(Integer.valueOf(userId.toString()))),
+                        status_array, new OrderUtil("productOrder_id", true), pageUtil);
 
         //订单总数量
         Integer orderCount = 0;
@@ -103,11 +143,19 @@ public class ForeOrderController extends BaseController {
         map.put("categoryList", categoryList);
         map.put("status", status);
 
-        logger.info("转到前台天猫-订单列表页");
+        logger.info("转到前台真食惠-订单列表页");
         return "fore/orderListPage";
     }
 
-    //转到前台天猫-订单建立页
+    /**
+     * @param product_id 产品id
+     * @param product_number 产品
+     * @param map map存储值
+     * @param session 用户与服务通讯
+     * @param request 前端请求
+     * @return 订单建立页面
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @RequestMapping(value = "order/create/{product_id}", method = RequestMethod.GET)
     public String goToOrderConfirmPage(@PathVariable("product_id") Integer product_id,
                                        @RequestParam(required = false, defaultValue = "1") Short product_number,
@@ -201,11 +249,18 @@ public class ForeOrderController extends BaseController {
         map.put("order_phone", order_phone);
         map.put("detailsAddress", detailsAddress);
 
-        logger.info("转到前台天猫-订单建立页");
+        logger.info("转到前台真食惠-订单建立页");
         return "fore/productBuyPage";
     }
 
-    //转到前台天猫-购物车订单建立页
+    /**
+     * @param map map存储值
+     * @param session 用户与服务器通讯
+     * @param request 前台请求
+     * @param order_item_list 订单条目集合
+     * @return 购物车订单建立页面
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @RequestMapping(value = "order/create/byCart", method = RequestMethod.GET)
     public String goToOrderConfirmPageByCart(Map<String, Object> map,
                                              HttpSession session, HttpServletRequest request,
@@ -311,11 +366,16 @@ public class ForeOrderController extends BaseController {
         map.put("order_phone", order_phone);
         map.put("detailsAddress", detailsAddress);
 
-        logger.info("转到前台天猫-订单建立页");
+        logger.info("转到前台真食惠-订单建立页");
         return "fore/productBuyPage";
     }
 
-    //转到前台天猫-订单支付页
+    /**
+     * @param map map存储值
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单支付页面
+     */
     @RequestMapping(value = "order/pay/{order_code}", method = RequestMethod.GET)
     public String goToOrderPayPage(Map<String, Object> map, HttpSession session,
                                    @PathVariable("order_code") String order_code) {
@@ -366,11 +426,16 @@ public class ForeOrderController extends BaseController {
         map.put("productOrder", order);
         map.put("orderTotalPrice", orderTotalPrice);
 
-        logger.info("转到前台天猫-订单支付页");
+        logger.info("转到前台真食惠-订单支付页");
         return "fore/productPayPage";
     }
 
-    //转到前台天猫-订单支付成功页
+    /**
+     * @param map map存储值
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单支付成功页面
+     */
     @RequestMapping(value = "order/pay/success/{order_code}", method = RequestMethod.GET)
     public String goToOrderPaySuccessPage(Map<String, Object> map, HttpSession session,
                                           @PathVariable("order_code") String order_code) {
@@ -437,11 +502,16 @@ public class ForeOrderController extends BaseController {
         map.put("productOrder", order);
         map.put("orderTotalPrice", orderTotalPrice);
 
-        logger.info("转到前台天猫-订单支付成功页");
+        logger.info("转到前台真食惠-订单支付成功页");
         return "fore/productPaySuccessPage";
     }
 
-    //转到前台天猫-订单确认页
+    /**
+     * @param map map存储值
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单确认页
+     */
     @RequestMapping(value = "order/confirm/{order_code}", method = RequestMethod.GET)
     public String goToOrderConfirmPage(Map<String, Object> map, HttpSession session,
                                        @PathVariable("order_code") String order_code) {
@@ -498,11 +568,16 @@ public class ForeOrderController extends BaseController {
         map.put("productOrder", order);
         map.put("orderTotalPrice", orderTotalPrice);
 
-        logger.info("转到前台天猫-订单确认页");
+        logger.info("转到前台真食惠-订单确认页");
         return "fore/orderConfirmPage";
     }
 
-    //转到前台天猫-订单完成页
+    /**
+     * @param map  map存储值
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单完成页
+     */
     @RequestMapping(value = "order/success/{order_code}", method = RequestMethod.GET)
     public String goToOrderSuccessPage(Map<String, Object> map, HttpSession session,
                                        @PathVariable("order_code") String order_code) {
@@ -555,11 +630,15 @@ public class ForeOrderController extends BaseController {
 
         map.put("product", product);
 
-        logger.info("转到前台天猫-订单完成页");
+        logger.info("转到前台真食惠-订单完成页");
         return "fore/orderSuccessPage";
     }
 
-    //转到前台天猫-购物车页
+    /**
+     * @param map map存储值
+     * @param session 用户与服务器通讯
+     * @return 购物车页面
+     */
     @RequestMapping(value = "cart", method = RequestMethod.GET)
     public String goToCartPage(Map<String, Object> map, HttpSession session) {
         logger.info("检查用户是否登录");
@@ -590,11 +669,15 @@ public class ForeOrderController extends BaseController {
         map.put("orderItemList", orderItemList);
         map.put("orderItemTotal", orderItemTotal);
 
-        logger.info("转到前台天猫-购物车页");
+        logger.info("转到前台真食惠-购物车页");
         return "fore/productBuyCarPage";
     }
 
-    //更新订单信息为已支付，待发货-ajax
+    /**
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单信息-ajax
+     */
     @ResponseBody
     @RequestMapping(value = "order/pay/{order_code}", method = RequestMethod.PUT)
     public String orderPay(HttpSession session, @PathVariable("order_code") String order_code) {
@@ -662,7 +745,12 @@ public class ForeOrderController extends BaseController {
         return object.toJSONString();
     }
 
-    //更新订单信息为已发货，待确认-ajax
+    /**
+     * 更新订单信息为已发货，待确认-ajax
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单支付完成
+     */
     @RequestMapping(value = "order/delivery/{order_code}", method = RequestMethod.GET)
     public String orderDelivery(HttpSession session, @PathVariable("order_code") String order_code) {
         logger.info("检查用户是否登录");
@@ -698,7 +786,12 @@ public class ForeOrderController extends BaseController {
         return "redirect:/order/0/10";
     }
 
-    //更新订单信息为交易成功-ajax
+    /**
+     * 更新订单信息为交易成功-ajax
+     * @param session 用户与服务器通讯
+     * @param order_code 订单码
+     * @return 订单信息
+     */
     @ResponseBody
     @RequestMapping(value = "order/success/{order_code}", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     public String orderSuccess(HttpSession session, @PathVariable("order_code") String order_code) {
@@ -748,7 +841,12 @@ public class ForeOrderController extends BaseController {
         return object.toJSONString();
     }
 
-    //更新订单信息为交易关闭-ajax
+    /**
+     * 更新订单信息为交易关闭-ajax
+     * @param session 用户服务器通讯
+     * @param order_code 订单码
+     * @return 订单交易信息
+     */
     @ResponseBody
     @RequestMapping(value = "order/close/{order_code}", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     public String orderClose(HttpSession session, @PathVariable("order_code") String order_code) {
@@ -797,7 +895,14 @@ public class ForeOrderController extends BaseController {
         return object.toJSONString();
     }
 
-    //更新购物车订单项数量-ajax
+    /**
+     * 更新购物车订单项数量-ajax
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @param response 后台响应
+     * @param orderItemMap 订单条目map
+     * @return 订单项交易信息
+     */
     @ResponseBody
     @RequestMapping(value = "orderItem", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     public String updateOrderItem(HttpSession session, Map<String, Object> map, HttpServletResponse response,
@@ -848,7 +953,24 @@ public class ForeOrderController extends BaseController {
         }
     }
 
-    //创建新订单-单订单项-ajax
+    /**
+     * 创建新订单-单订单项-ajax
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @param response 响应请求
+     * @param addressId 地址id
+     * @param cityAddressId 城市id
+     * @param districtAddressId 区id
+     * @param productOrder_detail_address 产品订单详情id
+     * @param productOrder_post 产品订单
+     * @param productOrder_receiver 产品订单接收者
+     * @param productOrder_mobile 产品订单邮政编码
+     * @param userMessage 用户留言信息
+     * @param orderItem_product_id 订单条目产品id
+     * @param orderItem_number 订单条目数量
+     * @return 创建新订单项，存储订单项信息
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @ResponseBody
     @RequestMapping(value = "order", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public String createOrderByOne(HttpSession session, Map<String, Object> map, HttpServletResponse response,
@@ -940,7 +1062,22 @@ public class ForeOrderController extends BaseController {
         return object.toJSONString();
     }
 
-    //创建新订单-多订单项-ajax
+    /**
+     * 创建新订单-多订单项-ajax
+     * @param session 用户与服务器通讯
+     * @param map map存储值
+     * @param response 响应请求
+     * @param addressId 地址id
+     * @param cityAddressId 城市id
+     * @param districtAddressId 区id
+     * @param productOrder_detail_address 产品订单详情地址
+     * @param productOrder_post 产品订单
+     * @param productOrder_receiver 产品订单接收者
+     * @param productOrder_mobile 产品订单邮政编号
+     * @param orderItemJSON 订单条目json信息
+     * @return 创建多个新订单 订单条目信息
+     * @throws UnsupportedEncodingException
+     */
     @ResponseBody
     @RequestMapping(value = "order/list", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public String createOrderByList(HttpSession session, Map<String, Object> map, HttpServletResponse response,
@@ -1049,7 +1186,14 @@ public class ForeOrderController extends BaseController {
         return object.toJSONString();
     }
 
-    //创建订单项-购物车-ajax
+    /**
+     * 创建订单项-购物车-ajax
+     * @param product_id 产品Id
+     * @param product_number 产品树
+     * @param session 用户与服务器通讯
+     * @param request 前台请求
+     * @return 订单项等信息
+     */
     @ResponseBody
     @RequestMapping(value = "orderItem/create/{product_id}", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public String createOrderItem(@PathVariable("product_id") Integer product_id,
@@ -1107,7 +1251,13 @@ public class ForeOrderController extends BaseController {
         return object.toJSONString();
     }
 
-    //删除订单项-购物车-ajax
+    /**
+     * 删除订单项-购物车-ajax
+     * @param orderItem_id 订单项id
+     * @param session 用户与服务器通讯
+     * @param request 前台请求
+     * @return 删除订单项，订单项等信息
+     */
     @ResponseBody
     @RequestMapping(value = "orderItem/{orderItem_id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
     public String deleteOrderItem(@PathVariable("orderItem_id") Integer orderItem_id,

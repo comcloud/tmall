@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+/**
+ * @author HP
+ */
 @Repository
 public interface ProductMapper {
     Integer insertOne(@Param("product") Product product);

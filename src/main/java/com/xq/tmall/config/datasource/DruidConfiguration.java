@@ -1,44 +1,37 @@
 package com.xq.tmall.config.datasource;
 
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import javax.sql.DataSource;
 
 /**
+ * @author HP
  * @description:Druid监控数据源
  */
 @Configuration
 @PropertySource(value = "classpath:application-dev.yml")
 public class DruidConfiguration {
 
+	/**
+	 * @return druid连接池
+	 */
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource druidDataSource() {
-		DruidDataSource druidDataSource = new DruidDataSource();
-		return druidDataSource;
+		return new DruidDataSource();
 	}
 
 	/**
 	 * 注册一个StatViewServlet
-	 * @return
+	 * @return 注册一个StatViewServlet
 	 */
 	@Bean
 	public ServletRegistrationBean druidStatViewServlet(){
@@ -60,7 +53,7 @@ public class DruidConfiguration {
 
 	/**
 	 * 注册一个：filterRegistrationBean
-	 * @return
+	 * @return 注册一个：filterRegistrationBean
 	 */
 	@Bean
 	public FilterRegistrationBean druidStatFilter(){

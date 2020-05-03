@@ -1,5 +1,8 @@
 package com.xq.tmall.util;
 
+/**
+ * @author HP
+ */
 public final class OrderUtil {
     //排序字段
     private String orderBy;

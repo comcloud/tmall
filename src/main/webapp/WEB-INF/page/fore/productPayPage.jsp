@@ -2,7 +2,7 @@
 <%@ include file="include/header.jsp" %>
 <head>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_orderPay.css" rel="stylesheet"/>
-    <title>天猫tmall.com - 网上支付</title>
+    <title>真食惠tmall.com - 网上支付</title>
 </head>
 <body>
 <nav>
@@ -21,15 +21,15 @@
         <c:choose>
             <c:when test="${fn:length(requestScope.productOrder.productOrderItemList)==1}">
                 <div class="order_name">
-                    <span>天猫Tmall -- ${requestScope.productOrder.productOrderItemList[0].productOrderItem_product.product_name}</span>
+                    <span>真食惠Tmall -- ${requestScope.productOrder.productOrderItemList[0].productOrderItem_product.product_name}</span>
                 </div>
                 <div class="order_shop_name">
-                    <span>卖家昵称：天猫${requestScope.productOrder.productOrderItemList[0].productOrderItem_product.product_category.category_name}旗舰店</span>
+                    <span>卖家昵称：真食惠${requestScope.productOrder.productOrderItemList[0].productOrderItem_product.product_category.category_name}旗舰店</span>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="order_name">
-                    <span>天猫Tmall -- 合并订单：${fn:length(requestScope.productOrder.productOrderItemList)}笔</span>
+                    <span>真食惠Tmall -- 合并订单：${fn:length(requestScope.productOrder.productOrderItemList)}笔</span>
                 </div>
             </c:otherwise>
         </c:choose>

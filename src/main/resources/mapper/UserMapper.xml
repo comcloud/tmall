@@ -21,10 +21,11 @@
     </resultMap>
 
     <insert id="insertOne" parameterType="com.xq.tmall.entity.User">
-        INSERT INTO user(user_id,user_name,user_nickname,user_password,user_realname,user_gender,user_birthday,user_profile_picture_src,user_address,user_homeplace)
+        INSERT INTO user(user_id,user_name,uuid,user_nickname,user_password,user_realname,user_gender,user_birthday,user_profile_picture_src,user_address,user_homeplace)
             VALUES (
             null,
             #{user.user_name},
+            #{user.uuid},
             #{user.user_nickname},
             #{user.user_password},
             #{user.user_realname},
@@ -77,6 +78,12 @@
         SELECT user_id,user_name,user_nickname,user_password,user_realname,user_gender,user_birthday,user_profile_picture_src,user_address,user_homeplace FROM user
         <where>
             user_id = #{user_id}
+        </where>
+    </select>
+    <select id="selectByUuid" resultMap="userMap" parameterType="string">
+        select * from user
+        <where>
+            uuid = #{uuid}
         </where>
     </select>
     <select id="selectByLogin" resultMap="userMap">

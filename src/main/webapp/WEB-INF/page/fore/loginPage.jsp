@@ -27,7 +27,7 @@
             border-bottom: 1px solid #e5e5e5;
         }
     </style>
-    <title>天猫-登录</title>
+    <title>真食惠-登录</title>
 </head>
 <body>
 <nav id="baseNavigator">
@@ -38,13 +38,6 @@
 <div class="content">
     <div class="contentMain"></div>
     <div class="loginDiv">
-        <div class="loginSwitch" id="loginSwitch"></div>
-        <div class="loginMessage">
-            <div class="loginMessageMain">
-                <div class="poptip-arrow"><em></em><span></span></div>
-                <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/scan-safe.png"/><span>扫码登录更安全</span>
-            </div>
-        </div>
         <div class="pwdLogin">
             <span class="loginTitle">密码登录</span>
             <form method="post" class="loginForm">
@@ -63,32 +56,14 @@
                 <input type="submit" class="loginButton" value="登 录">
             </form>
             <div class="loginLinks">
-                <a href="#">忘记密码</a>
-                <a href="#">忘记会员名</a>
+                <a href="${pageContext.request.contextPath}/faceLogin">人脸登录</a>
                 <a href="${pageContext.request.contextPath}/register">免费注册</a>
             </div>
             <div class="error_message">
                 <p id="error_message_p"></p>
             </div>
         </div>
-        <div class="qrcodeLogin">
-            <span class="loginTitle">手机扫码，安全登录</span>
-            <div class="qrcodeMain">
-                <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/login_qrcode.png"
-                     id="qrcodeA"/>
-                <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/login_qrcodeB.png"
-                     id="qrcodeB"/>
-            </div>
-            <div class="qrcodeFooter">
-                <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/scan_icon2.png">
-                <p>打开 <a href="https://www.tmall.com/wow/portal/act/app-download">手机天猫</a> | <a
-                        href="https://www.taobao.com/m">手机淘宝</a>扫一扫登录</p>
-            </div>
-            <div class="loginLinks">
-                <a href="JavaScript:void(0)" id="pwdLogin">密码登录</a>
-                <a href="#">免费注册</a>
-            </div>
-        </div>
+
     </div>
 </div>
 <%@ include file="include/footer.jsp" %>

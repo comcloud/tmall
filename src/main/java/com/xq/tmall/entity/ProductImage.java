@@ -1,9 +1,24 @@
 package com.xq.tmall.entity;
 
+/**
+ * @author HP
+ */
 public class ProductImage {
+    /**
+     * 产品图片id
+     */
     private Integer productImage_id;
+    /**
+     * 产品图片类型
+     */
     private Byte productImage_type;
+    /**
+     * 产品图片路径
+     */
     private String productImage_src;
+    /**
+     * 归属于的产品----一个产品有多个图片
+     */
     private Product productImage_product;
 
     public ProductImage(){

@@ -25,16 +25,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author HP
+ * 用户层，提供用户
+ */
 @Controller
 public class ForeUserController extends BaseController{
+    /**
+     * 地址服务层
+     */
     @Autowired
     private AddressService addressService;
+    /**
+     * 用户服务层
+     */
     @Autowired
     private UserService userService;
 
-    //转到前台天猫-用户详情页
+    /**
+     * 用户前台页面
+     * @param session 用户与服务器间的通讯
+     * @param map 用于存放各级信息
+     * @return 转到用户详情页
+     */
     @RequestMapping(value = "userDetails", method = RequestMethod.GET)
     public String goToUserDetail(HttpSession session, Map<String,Object> map){
+        /**
+         * 1.检查用户是否已经登录
+         *  - 登录成功
+         * 2.通过用户服务层获取用户信息
+         * 3.获取用户所在地区级地址
+         * 4.获取市区级地址
+         * 5.获取其他地址信息--这里使用地址服务层来服务，分别有根列表，城市列表，区列表
+         * 6.将这些信息全部放入Map中
+         *  - 登录失败
+         * 2.返回登录
+         * */
         logger.info("检查用户是否登录");
         Object userId = checkUser(session);
         if (userId != null) {
@@ -63,15 +89,29 @@ public class ForeUserController extends BaseController{
             return "redirect:/login";
         }
     }
-    //前台天猫-用户更换头像
+
+    /**
+     * 用户更换头像
+     * @param file 用于获取网页中原有的一些文件，这里用于获取头像图片
+     * @param session 用户和服务器通讯
+     * @return 存放更换信息---成功与文件名  或   失败与失败标志
+     */
     @ResponseBody
     @RequestMapping(value = "user/uploadUserHeadImage", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public  String uploadUserHeadImage(@RequestParam MultipartFile file, HttpSession session
     ){
+        /**
+         * 1.先获取原始的文件名并取其文件后缀
+         * 2.获取文件然后然后上传
+         * 3.采用JSONObejct这个类用来存储上传信息
+         * 4.将json对象保存的信息返回
+         * */
         String originalFileName = file.getOriginalFilename();
         logger.info("获取图片原始文件名：{}", originalFileName);
         String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+        //拼接新的文件名，规则是随机一个UUID值加上原始文件名的后缀
         String fileName = UUID.randomUUID() + extension;
+        //这个时候相当于拿到了webapp路径
         String filePath = session.getServletContext().getRealPath("/") + "res/images/item/userProfilePicture/" + fileName;
         logger.info("文件上传路径：{}", filePath);
         JSONObject jsonObject = new JSONObject();
@@ -88,7 +128,22 @@ public class ForeUserController extends BaseController{
         }
         return jsonObject.toJSONString();
     }
-    //前台天猫-用户详情更新
+
+    /**
+     * 用户详情更新
+     * @param session 用户与服务器通讯
+     * @param map 存放用户信息
+     * @param user_nickname 用户昵称
+     * @param user_realname 用户真实姓名
+     * @param user_gender 用户性别
+     * @param user_birthday 用户生日
+     * @param user_address 用户所在地
+     * @param user_profile_picture_src 用户头像
+     * @param user_password 用户密码
+     * @return 用户详情页--这个时候已经更新  如果这时候用户没有登录则依旧跳转掉登录界面
+     * @throws ParseException 解析异常，对于用户Id的解析
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @RequestMapping(value="user/update",method=RequestMethod.POST,produces ="application/json;charset=utf-8")
     public String userUpdate(HttpSession session, Map<String,Object> map,
                              @RequestParam(value = "user_nickname") String user_nickname  /*用户昵称 */,
@@ -99,6 +154,13 @@ public class ForeUserController extends BaseController{
                              @RequestParam(value = "user_profile_picture_src", required = false) String user_profile_picture_src /* 用户头像*/,
                              @RequestParam(value = "user_password") String user_password/* 用户密码 */
     ) throws ParseException, UnsupportedEncodingException {
+        /**
+         * 1.检查用户是否已经登录，这里使用继承父类的方法检查用户登录
+         * 2.通过用户服务层获取用户对象，并把此对象放入map中
+         * 3.判断获取的用户照片字符串是否有值，有值的话赋值为null
+         * 4.调用用户服务层将新建的用户对象传入进行更新数据
+         * 5.更新成功跳转到用户详情界面
+         * */
         logger.info("检查用户是否登录");
         Object userId = checkUser(session);
         if (userId != null) {
@@ -128,4 +190,6 @@ public class ForeUserController extends BaseController{
          }
          throw new RuntimeException();
     }
+
+
 }

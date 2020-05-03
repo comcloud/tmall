@@ -29,12 +29,6 @@ public class PropertyServiceImpl implements PropertyService{
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public boolean addList(List<Property> propertyList) {
-        return propertyMapper.insertList(propertyList) > 0;
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    @Override
     public boolean update(Property property) {
         return propertyMapper.updateOne(property)>0;
     }

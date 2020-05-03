@@ -5,8 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author HP
+ */
 public class User {
     private Integer user_id;
+    private String uuid;
     private String user_name;
     private String user_nickname;
     private String user_password;
@@ -24,6 +28,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "user_id=" + user_id +
+                ", uuid='" + uuid + '\'' +
                 ", user_name='" + user_name + '\'' +
                 ", user_nickname='" + user_nickname + '\'' +
                 ", user_password='" + user_password + '\'' +
@@ -34,6 +39,8 @@ public class User {
                 ", user_homeplace=" + user_homeplace +
                 ", user_profile_picture_src='" + user_profile_picture_src + '\'' +
                 ", reviewList=" + reviewList +
+                ", productOrderItemList=" + productOrderItemList +
+                ", productOrderList=" + productOrderList +
                 '}';
     }
 
@@ -179,5 +186,14 @@ public class User {
 
     public void setProductOrderList(List<ProductOrder> productOrderList) {
         this.productOrderList = productOrderList;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public User setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 }

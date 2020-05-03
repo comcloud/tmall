@@ -23,23 +23,47 @@ import java.util.*;
 
 /**
  * 后台管理-产品页
+ * @author HP
  */
 @Controller
 public class ProductController extends BaseController{
+    /**
+     * 分类服务层
+     */
     @Autowired
     private CategoryService categoryService;
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 产品图片服务层
+     */
     @Autowired
     private ProductImageService productImageService;
+    /**
+     * 属性服务层
+     */
     @Autowired
     private PropertyService propertyService;
+    /**
+     * 属性值服务层
+     */
     @Autowired
     private PropertyValueService propertyValueService;
+    /**
+     * 获取最后一次id服务层
+     */
     @Autowired
     private LastIDService lastIDService;
 
-    //转到后台管理-产品页-ajax
+    /**
+     * 转到后台管理-产品页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储
+     * @return 后台管理产品页面
+     */
     @RequestMapping(value = "admin/product",method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map) {
         logger.info("检查管理员权限");
@@ -66,7 +90,13 @@ public class ProductController extends BaseController{
         return "admin/productManagePage";
     }
 
-    //转到后台管理-产品详情页-ajax
+    /**
+     * 转到后台管理-产品详情页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储
+     * @param pid 产品id
+     * @return 产品详情页
+     */
     @RequestMapping(value="admin/product/{pid}",method = RequestMethod.GET)
     public String goToDetailsPage(HttpSession session, Map<String, Object> map, @PathVariable Integer pid/* 产品ID */) {
         logger.info("检查管理员权限");
@@ -116,7 +146,12 @@ public class ProductController extends BaseController{
         return "admin/include/productDetails";
     }
 
-    //转到后台管理-产品添加页-ajax
+    /**
+     * 转到后台管理-产品添加页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 后台管理产品添加页面
+     */
     @RequestMapping(value = "admin/product/new",method = RequestMethod.GET)
     public String goToAddPage(HttpSession session,Map<String, Object> map){
         logger.info("检查管理员权限");
@@ -136,7 +171,19 @@ public class ProductController extends BaseController{
         return "admin/include/productDetails";
     }
 
-    //添加产品信息-ajax.
+    /**
+     * 添加产品信息-ajax.
+     * @param product_name  产品图片
+     * @param product_title 产品标题
+     * @param product_category_id 产品所在分类id
+     * @param product_sale_price 产品销售价格
+     * @param product_price 产品价格
+     * @param product_isEnabled 产品是否可以用，0表示可用，1表示不可用
+     * @param propertyJson 产品属性json
+     * @param productSingleImageList 产品预览图片名称数组
+     * @param productDetailsImageList 产品详情图片名称数组
+     * @return 添加产品信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/product", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String addProduct(@RequestParam String product_name/* 产品名称 */,
@@ -239,7 +286,22 @@ public class ProductController extends BaseController{
         return jsonObject.toJSONString();
     }
 
-    //更新产品信息-ajax
+    /**
+     * 更新产品信息-ajax
+     * @param product_name 产品名
+     * @param product_title 产品标题
+     * @param product_category_id 产品所在目录id
+     * @param product_sale_price 产品销售价格
+     * @param product_price 产品价格
+     * @param product_isEnabled 产品是否可用
+     * @param propertyAddJson 产品添加属性JSON
+     * @param propertyUpdateJson 产平更新属性JSON
+     * @param propertyDeleteList 产品删除属性ID数组
+     * @param productSingleImageList 产品预览图片数组
+     * @param productDetailsImageList 产品详情图片名称数组
+     * @param product_id 产品id
+     * @return 更新产品信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/product/{product_id}", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     public String updateProduct(@RequestParam String product_name/* 产品名称 */,
@@ -381,7 +443,20 @@ public class ProductController extends BaseController{
         return jsonObject.toJSONString();
     }
 
-    //按条件查询产品-ajax
+    /**
+     * 按条件查询产品-ajax
+     * @param product_name 产品名
+     * @param category_id 分类id
+     * @param product_sale_price 产品销售价格
+     * @param product_price 产品价格
+     * @param product_isEnabled_array 产品状态数组
+     * @param orderBy 排序自发u你
+     * @param isDesc 是否倒序
+     * @param index 页数
+     * @param count 行数
+     * @return 按照条件查询数据
+     * @throws UnsupportedEncodingException 不支持编码异常
+     */
     @ResponseBody
     @RequestMapping(value = "admin/product/{index}/{count}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     public String getProductBySearch(@RequestParam(required = false) String product_name/* 产品名称 */,
@@ -435,7 +510,11 @@ public class ProductController extends BaseController{
         return object.toJSONString();
     }
 
-    //按类型ID查询属性-ajax
+    /**
+     * 按类型ID查询属性-ajax
+     * @param property_category_id 属性所在分类id
+     * @return 分类查询属性信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/property/type/{property_category_id}", method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getPropertyByCategoryId(@PathVariable Integer property_category_id/* 属性所属类型ID*/){
@@ -451,7 +530,11 @@ public class ProductController extends BaseController{
         return object.toJSONString();
     }
 
-    //按ID删除产品图片并返回最新结果-ajax
+    /**
+     * 按ID删除产品图片并返回最新结果-ajax
+     * @param productImage_id 产品图片id
+     * @return 删除产品图片信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/productImage/{productImage_id}",method = RequestMethod.DELETE,produces = "application/json;charset=utf-8")
     public String deleteProductImageById(@PathVariable Integer productImage_id/* 产品图片ID */){
@@ -472,7 +555,13 @@ public class ProductController extends BaseController{
         return object.toJSONString();
     }
 
-    //上传产品图片-ajax
+    /**
+     * 上传产品图片-ajax
+     * @param file 产品图片
+     * @param imageType 图片类型
+     * @param session 用户与服务器通讯
+     * @return 上传图片信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/uploadProductImage", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public String uploadProductImage(@RequestParam MultipartFile file, @RequestParam String imageType, HttpSession session) {

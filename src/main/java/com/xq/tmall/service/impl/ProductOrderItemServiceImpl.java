@@ -14,15 +14,14 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author HP
+ */
 @Service
 public class ProductOrderItemServiceImpl implements ProductOrderItemService{
 
     @Autowired
     private ProductOrderItemMapper productOrderItemMapper;
-
-    public void setProductOrderItemMapper(ProductOrderItemMapper productOrderItemMapper) {
-        this.productOrderItemMapper = productOrderItemMapper;
-    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override

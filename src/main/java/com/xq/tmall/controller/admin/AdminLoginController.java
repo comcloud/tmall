@@ -15,20 +15,33 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 后台管理-登录页
+ * @author HP
  */
 @Controller
 public class AdminLoginController extends BaseController {
+    /**
+     * 管理员服务层
+     */
     @Autowired
     private AdminService adminService;
 
-    //转到后台管理-登录页
+    /**
+     * 转到后台管理-登录页
+     * @return 前往登录页面
+     */
     @RequestMapping("admin/login")
     public String goToPage(){
         logger.info("转到后台管理-登录页");
         return "admin/loginPage";
     }
 
-    //登陆验证-ajax
+    /**
+     * 登陆验证-ajax
+     * @param session 用户与服务器通讯
+     * @param username 用户名
+     * @param password 密码
+     * @return 登录信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/login/doLogin",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String checkLogin(HttpSession session, @RequestParam String username, @RequestParam String password) {
@@ -48,7 +61,11 @@ public class AdminLoginController extends BaseController {
         return object.toJSONString();
     }
 
-    //获取管理员头像路径-ajax
+    /**
+     * 获取管理员头像路径-ajax
+     * @param username 用户名
+     * @return 存储获取头像信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/login/profile_picture",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getAdminProfilePicture(@RequestParam String username){

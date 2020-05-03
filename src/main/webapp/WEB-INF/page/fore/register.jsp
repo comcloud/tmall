@@ -3,7 +3,7 @@
 <head>
     <script src="${pageContext.request.contextPath}/res/js/fore/fore_register.js"></script>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_register.css" rel="stylesheet">
-    <title>天猫tmall.com - 网上注册</title>
+    <title>真食惠tmall.com - 网上注册</title>
     <script>
         $(function () {
             $("span.address_province").text($("#select_order_address_province").find("option:selected").text());

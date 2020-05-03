@@ -24,25 +24,47 @@ import java.util.Stack;
 
 /**
  * 后台管理-订单页
+ * @author HP
  */
 @Controller
 public class OrderController extends BaseController{
+    /**
+     * 产品订单服务层
+     */
     @Autowired
     private ProductOrderService productOrderService;
+    /**
+     * 地址服务层
+     */
     @Autowired
     private AddressService addressService;
+    /**
+     * 用户服务层
+     */
     @Autowired
     private UserService userService;
+    /**
+     * 产品订单条目服务层
+     */
     @Autowired
     private ProductOrderItemService productOrderItemService;
+    /**
+     * 产品服务层
+     */
     @Autowired
     private ProductService productService;
+    /**
+     * 产品图片服务层
+     */
     @Autowired
     private ProductImageService productImageService;
-    @Autowired
-    private LastIDService lastIDService;
 
-    //转到后台管理-订单页-ajax
+    /**
+     * 转到后台管理-订单页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 后台管理订单页面
+     */
     @RequestMapping(value = "admin/order", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map){
         logger.info("检查管理员权限");
@@ -66,7 +88,13 @@ public class OrderController extends BaseController{
         return "admin/orderManagePage";
     }
 
-    //转到后台管理-订单详情页-ajax
+    /**
+     * 转到后台管理-订单详情页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @param oid 订单id
+     * @return 订单详情页面
+     */
     @RequestMapping(value = "admin/order/{oid}", method = RequestMethod.GET)
     public String goToDetailsPage(HttpSession session, Map<String, Object> map, @PathVariable Integer oid/* 订单ID */) {
         logger.info("检查管理员权限");
@@ -118,7 +146,11 @@ public class OrderController extends BaseController{
         return "admin/include/orderDetails";
     }
 
-    //更新订单信息-ajax
+    /**
+     * 更新订单信息-ajax
+     * @param order_id 订单id
+     * @return 更新订单信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/order/{order_id}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
     public String updateOrder(@PathVariable("order_id") String order_id) {
@@ -142,7 +174,17 @@ public class OrderController extends BaseController{
         return jsonObject.toJSONString();
     }
 
-    //按条件查询订单-ajax
+    /**
+     * 按条件查询订单-ajax
+     * @param productOrder_code 产品订单码
+     * @param productOrder_post 产品订单邮政编码
+     * @param productOrder_status_array 产品订单状态数组
+     * @param orderBy 排序字段
+     * @param isDesc 是否倒序
+     * @param index 页数
+     * @param count 行数
+     * @return 查询订单信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/order/{index}/{count}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public String getOrderBySearch(@RequestParam(required = false) String productOrder_code/* 订单号 */,

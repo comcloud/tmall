@@ -13,14 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author HP
+ */
 @Service
 public class UserServiceImpl implements UserService{
+    /**
+     * 用户数据库操作层
+     */
     @Autowired
     private UserMapper userMapper;
-
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
@@ -42,6 +44,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public User get(Integer user_id) {
         return userMapper.selectOne(user_id);
+    }
+
+    /**
+     * @param uuid 用户人脸登录的uuid值
+     * @return 人脸登录获取用户信息
+     */
+    @Override
+    public User get(String uuid) {
+        return userMapper.selectByUuid(uuid);
     }
 
     @Override

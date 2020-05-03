@@ -28,17 +28,32 @@ import java.util.UUID;
 
 /**
  * 后台管理-分类页
+ * @author HP
  */
 @Controller
 public class CategoryController extends BaseController {
+    /**
+     *
+     */
     @Autowired
     private CategoryService categoryService;
+    /**
+     * 返回最后一个INSERT或 UPDATE 问询为 AUTO_INCREMENT列设置的第一个 发生的值。
+     */
     @Autowired
     private LastIDService lastIDService;
+    /**
+     * 属性服务层
+     */
     @Autowired
     private PropertyService propertyService;
 
-    //转到后台管理-分类页-ajax
+    /**
+     * 转到后台管理-分类页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 后台管理分类层
+     */
     @RequestMapping(value = "admin/category", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map) {
         logger.info("检查管理员权限");
@@ -62,7 +77,13 @@ public class CategoryController extends BaseController {
         return "admin/categoryManagePage";
     }
 
-    //转到后台管理-分类详情页-ajax
+    /**
+     * 转到后台管理-分类详情页-ajax
+     * @param session  用户与服务器通讯
+     * @param map 存储值
+     * @param cid 分类id
+     * @return 分类详情页面
+     */
     @RequestMapping(value = "admin/category/{cid}", method = RequestMethod.GET)
     public String goToDetailsPage(HttpSession session, Map<String, Object> map, @PathVariable Integer cid/* 分类ID */) {
         logger.info("检查管理员权限");
@@ -80,7 +101,12 @@ public class CategoryController extends BaseController {
         return "admin/include/categoryDetails";
     }
 
-    //转到后台管理-分类添加页-ajax
+    /**
+     * 转到后台管理-分类添加页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 分类添加页面
+     */
     @RequestMapping(value = "admin/category/new", method = RequestMethod.GET)
     public String goToAddPage(HttpSession session, Map<String, Object> map) {
         logger.info("检查管理员权限");
@@ -93,7 +119,12 @@ public class CategoryController extends BaseController {
         return "admin/include/categoryDetails";
     }
 
-    //添加分类信息-ajax
+    /**
+     * 添加分类信息-ajax
+     * @param category_name  分类名
+     * @param category_image_src 分类图片
+     * @return 添加分类信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/category", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public String addCategory(@RequestParam String category_name/* 分类名称 */,
@@ -119,7 +150,13 @@ public class CategoryController extends BaseController {
         return jsonObject.toJSONString();
     }
 
-    //更新分类信息-ajax
+    /**
+     * 更新分类信息-ajax
+     * @param category_name 分类名
+     * @param category_image_src 分类图片
+     * @param category_id 分类id
+     * @return 更新分类信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/category/{category_id}", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     public String updateCategory(@RequestParam String category_name/* 分类名称 */,
@@ -146,7 +183,14 @@ public class CategoryController extends BaseController {
         return jsonObject.toJSONString();
     }
 
-    //按条件查询分类-ajax
+    /**
+     * 按条件查询分类-ajax
+     * @param category_name 分类名
+     * @param index 页数
+     * @param count 行数
+     * @return 查询你的分类信息
+     * @throws UnsupportedEncodingException 不支持编码信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/category/{index}/{count}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     public String getCategoryBySearch(@RequestParam(required = false) String category_name/* 分类名称 */,
@@ -174,7 +218,12 @@ public class CategoryController extends BaseController {
         return object.toJSONString();
     }
 
-    // 上传分类图片-ajax
+    /**
+     * 上传分类图片-ajax
+     * @param file 分类图片
+     * @param session 用户与服务器通讯
+     * @return 上传信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/uploadCategoryImage", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public String uploadCategoryImage(@RequestParam MultipartFile file, HttpSession session) {

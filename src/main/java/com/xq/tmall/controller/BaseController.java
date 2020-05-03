@@ -9,10 +9,16 @@ import javax.servlet.http.HttpSession;
  * 基控制器
  */
 public class BaseController {
-    //log4j
+    /**
+     * 日志类，记录日志
+     */
     protected Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
-    //检查管理员权限
+    /**
+     * 检查管理员权限
+     * @param session 用于会话的接收
+     * @return 管理员权限
+     */
     protected Object checkAdmin(HttpSession session){
         Object o = session.getAttribute("adminId");
         if(o==null){
@@ -23,7 +29,11 @@ public class BaseController {
         return o;
     }
 
-    //检查用户是否登录
+    /**
+     * 判断用户是否已经登录
+     * @param session 用于会话的接收
+     * @return 返回取到userId属性的查找
+     */
     protected Object checkUser(HttpSession session){
         Object o = session.getAttribute("userId");
         if(o==null){

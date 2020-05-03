@@ -5,23 +5,70 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author HP
+ */
 public class Product {
+    /**
+     * 产品id
+     */
     private Integer product_id;
+    /**
+     * 产品名
+     */
     private String product_name;
+    /**
+     * 产品标题
+     */
     private String product_title;
+    /**
+     * 产品价格
+     */
     private Double product_price;
+    /**
+     * 产品销售价格
+     */
     private Double product_sale_price;
+    /**
+     * 产品创建时间
+     */
     private Date product_create_date;
+    /**
+     * 产品子目录
+     */
     private Category product_category;
+    /**
+     * 产品是否可用，0表示可用，1表示不可用
+     */
     private Byte product_isEnabled;
+    /**
+     * 属性值列表
+     */
     private List<PropertyValue> propertyValueList;
+    /**
+     * 单个产品图片集合
+     */
     private List<ProductImage> singleProductImageList;
+    /**
+     * 产品详情图片集合
+     */
     private List<ProductImage> detailProductImageList;
+    /**
+     * 产品反馈集合
+     */
     private List<Review> reviewList;
+    /**
+     * 产品订单条目
+     */
     private List<ProductOrderItem> productOrderItemList;
-    //销量数
+    /**
+     * 产品限量数量
+     */
     private Integer product_sale_count;
     //评价数
+    /**
+     * 产品评价数量
+     */
     private Integer product_review_count;
     public Object setProduct_sale_co;
 

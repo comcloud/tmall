@@ -1,10 +1,21 @@
 package com.xq.tmall.entity;
 
-import lombok.Data;
 
+/**
+ * @author HP
+ */
 public class Address {
+    /**
+     * 地址区域id
+     */
     private String address_areaId;
+    /**
+     * 地址名
+     */
     private String address_name;
+    /**
+     * 地址区域
+     */
     private Address address_regionId;
 
     public Address() {

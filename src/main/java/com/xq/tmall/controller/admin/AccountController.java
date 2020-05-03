@@ -19,13 +19,19 @@ import java.util.UUID;
 
 /**
  * 后台管理-账户页
+ * @author HP
  */
 @Controller
 public class AccountController extends BaseController{
     @Autowired
     private AdminService adminService;
 
-    //转到后台管理-账户页-ajax
+    /**
+     * 转到后台管理-账户页-ajax
+     * @param session 用户与服务器通讯
+     * @param map 存储值
+     * @return 后台管理中的账户页面
+     */
     @RequestMapping(value = "admin/account", method = RequestMethod.GET)
     public String goToPage(HttpSession session, Map<String, Object> map){
         logger.info("检查管理员权限");
@@ -42,7 +48,10 @@ public class AccountController extends BaseController{
         return "admin/accountManagePage";
     }
 
-    //退出当前账号
+    /**
+     * @param session 用户与服务器通讯
+     * @return 返回到管理员登录页面
+     */
     @RequestMapping(value = "admin/account/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         Object o = session.getAttribute("adminId");
@@ -56,7 +65,12 @@ public class AccountController extends BaseController{
         return "redirect:/admin/login";
     }
 
-    //管理员头像上传
+    /**
+     * 管理员头像上传
+     * @param file 头像文件
+     * @param session 用户与服务器通讯
+     * @return 文件上传信息
+     */
     @ResponseBody
     @RequestMapping(value = "admin/uploadAdminHeadImage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String uploadAdminHeadImage(@RequestParam MultipartFile file, HttpSession session) {
@@ -82,7 +96,15 @@ public class AccountController extends BaseController{
         return jsonObject.toJSONString();
     }
 
-    //更新管理员信息
+    /**
+     * @param session 用户与服务器通讯
+     * @param admin_nickname 管理员昵称
+     * @param admin_password 管理员密码
+     * @param admin_newPassword 管理员新密码
+     * @param admin_profile_picture_src 管理员头像
+     * @param admin_id 管理员id
+     * @return 更新管理员信息
+     */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @ResponseBody
     @RequestMapping(value = "admin/account/{admin_id}", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")

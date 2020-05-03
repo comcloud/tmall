@@ -16,7 +16,7 @@
                     target="_blank">支付宝充值</a></dd>
         </dl>
         <dl>
-            <dt><span>天猫保障</span></dt>
+            <dt><span>真食惠保障</span></dt>
             <dd data-spm-anchor-id="875.7931836/B.a2226n1.i0.71ca4265hUvhyq"><a
                     href="http://service.tmall.com/support/tmall/knowledge-1140860.htm" target="_blank">发票保障</a> <a
                     href="http://service.tmall.com/support/tmall/knowledge-1124063.htm" target="_blank">售后规则</a> <a
@@ -33,19 +33,19 @@
         <dl>
             <dt><span>商家服务</span></dt>
             <dd>
-                <a href="http://guize.tmall.com/" target="_blank">天猫规则</a>
+                <a href="http://guize.tmall.com/" target="_blank">真食惠规则</a>
                 <a href="http://zhaoshang.tmall.com/" target="_blank">商家入驻</a>
                 <a href="http://shangjia.tmall.com/portal.htm" target="_blank">商家中心</a>
-                <a href="http://peixun.tmall.com/" target="_blank">天猫智库</a>
+                <a href="http://peixun.tmall.com/" target="_blank">真食惠智库</a>
                 <a href="http://e56.tmall.com" target="_blank">物流服务</a>
                 <a href="http://maowo.tmall.com/" target="_blank">喵言喵语</a>
                 <a href="http://fw.tmall.com/" target="_blank">运营服务</a></dd>
         </dl>
         <dl>
-            <dt>手机天猫</dt>
+            <dt>手机真食惠</dt>
             <dd><a href="http://mobile.tmall.com/?spm=875.7931836/B.a2226n1.23.71ca4265hUvhyq" class="join"><img
                     src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/TB14VZKHXXXXXcAXXXX64VRZFXX-105-105.png"
-                    width="105" height="105" alt="手机天猫"></a>
+                    width="105" height="105" alt="手机真食惠"></a>
             </dd>
         </dl>
     </div>

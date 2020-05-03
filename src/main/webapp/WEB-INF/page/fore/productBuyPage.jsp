@@ -3,7 +3,7 @@
 <head>
     <script src="${pageContext.request.contextPath}/res/js/fore/fore_productBuy.js"></script>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_productBuyPage.css" rel="stylesheet"/>
-    <title>确认订单 - Tmall.com天猫-理想生活上天猫</title>
+    <title>确认订单 - Tmall.com真食惠-理想生活上真食惠</title>
     <script>
         $(function () {
             $("span.address_province").text($("#select_order_address_province").find("option:selected").text());
@@ -20,9 +20,11 @@
     <div class="headerContext">
         <div class="mallLogo">
             <span class="mlogo">
-                <a href="${pageContext.request.contextPath}">
-                    <s></s>
-                </a>
+<%--                <a href="${pageContext.request.contextPath}">--%>
+<%--                    <s></s>--%>
+<%--                </a>--%>
+                <img src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/detailsHeaderA.png"
+                     class="shopAssessHeader">
             </span>
         </div>
         <ol class="header-extra">
@@ -95,7 +97,7 @@
             <c:forEach items="${requestScope.orderItemList}" var="orderItem" varStatus="i">
                 <tr class="tr_shop">
                     <td><span class="span_shopTitle">店铺：</span><span
-                            class="span_shopName">贤趣${orderItem.productOrderItem_product.product_category.category_name}旗舰店</span>
+                            class="span_shopName">真食惠${orderItem.productOrderItem_product.product_category.category_name}旗舰店</span>
                     </td>
                     <td></td>
                     <td></td>
@@ -175,7 +177,8 @@
                 styleUtil.specialBasicErrorShow($("#label_order_receiver"));
                 yn = false;
             }
-            var re = /^(13[0-9]{9})|(15[89][0-9]{8})|(17[678][0-9]{8})|(199[0-9]{8})$/;
+            // var re = /^(13[0-9]{9})|(15[89][0-9]{8})|(17[678][0-9]{8})|(199[0-9]{8})$/;
+            var re = /0?(13|14|15|18|17)[0-9]{9}/;
             if (!re.test(productOrder_mobile)) {
                 styleUtil.specialBasicErrorShow($("#label_order_phone"));
                 yn = false;
